@@ -10,6 +10,30 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 
+class Key_actions implements KeyListener {
+    public void keyTyped(KeyEvent k) {
+		BouncingBall.c_code+=k.getKeyChar();
+		if(BouncingBall.c_code.length()==10){
+			if(BouncingBall.c_code.toUpperCase().equals("PAINKILLER")){
+				BouncingBall.c_code="";
+				BouncingBall.level=6;
+			}
+		}
+		else if(BouncingBall.c_code.length()==8){
+			if(BouncingBall.c_code.toUpperCase().equals("INFINITY")){
+				BouncingBall.Bullet_count=Integer.MAX_VALUE;
+			}
+		}
+        else if(BouncingBall.c_code.length()>10){
+			BouncingBall.c_code="";
+		}
+    }
+
+    public void keyPressed(KeyEvent kx) {}
+    public void keyReleased(KeyEvent key) {}
+}
+
+
 class Listener extends MouseAdapter{
 		public void mouseClicked(MouseEvent e){
 			if(BouncingBall.bullet_fire==false && !BouncingBall.won){
@@ -23,7 +47,8 @@ class Listener extends MouseAdapter{
 			   }
 			   else{
 				BouncingBall.bullet_fire=true;
-				BouncingBall.Bullet_remaining.setText("Bulltes: "+BouncingBall.Bullet_count);
+				BouncingBall.c_code="";
+				BouncingBall.Bullet_remaining.setText("Bullets: "+BouncingBall.Bullet_count);
 				BouncingBall.show_popup=false;
 				if(BouncingBall.gamemusic && BouncingBall.Bullet_count>=0){
 					try {
@@ -189,6 +214,7 @@ class BouncingBall extends Canvas{
 	public static Boolean gamemusic=true;
 	public static Boolean won=false;
 	public static JFrame f;
+	public static String c_code=""; 
 	
     public static void main(String[] args){
 		BouncingBall bouncingBall = new BouncingBall();
@@ -292,6 +318,8 @@ class BouncingBall extends Canvas{
 	f.add(detail_panel);
 	f.add(c);
 	gun.setBounds(0,312,150,80);
+	Key_actions key_actions = new Key_actions();
+	c.addKeyListener(key_actions);
 	c.setBounds(0,0,area_x,area_y);
 	Bullet_remaining.setBackground(new Color(255,255,255));
 	score.setBackground(new Color(255,255,255));
