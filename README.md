@@ -7,4 +7,4 @@ A 2D 8-bit style shooting game created with Java Swing API and threads.
 * Click to shoot a bullet.
 * Each hit gives **10** points and hitting the ball in the center adds **20** points.
 * **Extra Bullet** reward for 2 consecutive hits.
-* On reaching target score, the level gets changed.
+* On reaching the target score, the level gets changed.
